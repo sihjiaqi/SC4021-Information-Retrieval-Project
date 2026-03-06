@@ -1,1 +1,0 @@
-# SC4021-assignment
