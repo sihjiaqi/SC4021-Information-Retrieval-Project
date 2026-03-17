@@ -10,6 +10,6 @@ sort – desc or asc date
 start, rows – result pages
 fl – fields of output results shown
 df – default search field
-facet.field – categorizes search results
+facet.field – categorizes search results (multifaceted search)
 
 5) To close, run docker compose down
