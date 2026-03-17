@@ -1,0 +1,15 @@
+1) Donwload Docker https://www.docker.com
+2) Run the command inside project folder: docker compose up --build
+3) Open Solr Admin UI in browser: http://localhost:8983
+4) To query, click collection selection -> opinion -> query. Type query keyword in q field.
+
+Solr fields:
+q - main query
+fq – filter query by date (timeline search) created_at:[date TO *]
+sort – desc or asc date
+start, rows – result pages
+fl – fields of output results shown
+df – default search field
+facet.field – categorizes search results
+
+5) To close, run docker compose down
