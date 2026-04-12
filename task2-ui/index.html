@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOSE</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Main View (List) -->
+  <div id="mainView">
+    <header>
+      <div class="header-top">
+        <div class="logo">SOSE</div>
+        <div class="search-row">
+          <div class="search-input-wrapper">
+            <input
+              type="text"
+              id="searchInput"
+              class="search-input"
+              placeholder="Type here..."
+              autocomplete="off"
+            >
+            <ul id="autocompleteList" class="autocomplete-list"></ul>
+          </div>
+          <button id="filterBtn" class="filter-btn">Filter</button>
+          <button id="searchBtn" class="search-btn">Search</button>
+        </div>
+        <button id="metricsBtn" class="metrics-btn">Show Advanced Metrics</button>
+      </div>
+      <div id="activeFilterBubbles" class="active-filter-bubbles"></div>
+    </header>
+
+    <div class="content-wrapper">
+      <div class="container">
+        <!-- Discover Mode -->
+        <div id="discoverArea" class="discover-area active">
+          <div id="fuzzyNotice" class="fuzzy-notice" style="display: none;">
+            <span class="fuzzy-notice-text">No exact matches found — showing similar results</span>
+            <button class="fuzzy-notice-close" onclick="document.getElementById('fuzzyNotice').style.display='none';">✕</button>
+          </div>
+          <div id="entryList" class="entry-list"></div>
+          <div id="loadMoreContainer" class="load-more-container">
+            <button id="loadMoreBtn" class="load-more-btn">Load More</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metrics Panel -->
+      <div id="metricsPanel" class="metrics-panel">
+        <div class="metrics-content">
+          <div class="chart-container">
+            <h4 class="chart-label">Sentiment Distribution</h4>
+            <canvas id="sentimentChart"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4 class="chart-label">Subjectivity Distribution</h4>
+            <canvas id="subjectivityChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Modal -->
+  <div id="filterModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Filters</span>
+        <button id="modalCloseBtn" class="modal-close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="filter-columns">
+          <!-- Column 1 -->
+          <div class="filter-column">
+            <!-- Sentiment -->
+            <div class="filter-group">
+              <div class="filter-group-label">Sentiment</div>
+              <select id="sentimentFilter" class="filter-select" multiple>
+                <option value="Negative">Negative</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Positive">Positive</option>
+              </select>
+            </div>
+
+            <!-- Subjectivity -->
+            <div class="filter-group">
+              <div class="filter-group-label">Subjectivity</div>
+              <select id="subjectivityFilter" class="filter-select">
+                <option value="">All</option>
+                <option value="Objective">Objective</option>
+                <option value="Subjective">Subjective</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="filter-column">
+            <!-- Device -->
+            <div class="filter-group">
+              <div class="filter-group-label">Device</div>
+              <select id="deviceFilter" class="filter-select" multiple>
+              </select>
+            </div>
+
+            <!-- Type -->
+            <div class="filter-group">
+              <div class="filter-group-label">Type</div>
+              <select id="typeFilter" class="filter-select">
+                <option value="">All</option>
+                <option value="comment">Comment</option>
+                <option value="story">Story</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date Range (Full Width) -->
+        <div class="filter-group filter-group-full-width">
+          <div class="filter-group-label">Date Range</div>
+          <div class="filter-date-row">
+            <div class="filter-date-field">
+              <label class="filter-date-label">From</label>
+              <input type="date" id="dateFrom" class="filter-date-input">
+            </div>
+            <div class="filter-date-field">
+              <label class="filter-date-label">To</label>
+              <input type="date" id="dateTo" class="filter-date-input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="clearFilterBtn" class="modal-clear-btn">Clear Filter</button>
+        <button id="applyFilterBtn" class="modal-apply-btn">Apply Filter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail View -->
+  <div id="detailView" class="detail-view">
+    <header class="detail-header">
+      <div class="header-top">
+        <div class="logo">SOSE</div>
+        <button id="backBtn" class="back-btn">← Back</button>
+      </div>
+    </header>
+
+    <div class="detail-container">
+      <div id="detailTitle" class="detail-title"></div>
+      <div id="detailBubbles" class="entry-bubbles"></div>
+
+      <div class="detail-section-heading">Original Text</div>
+      <div class="detail-section">
+        <div id="detailOriginalText" class="detail-section-body"></div>
+      </div>
+
+      <div class="detail-section-heading">Processed Text</div>
+      <div class="detail-section">
+        <div id="detailProcessedText" class="detail-section-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
