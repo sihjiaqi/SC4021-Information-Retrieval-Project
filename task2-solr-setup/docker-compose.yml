@@ -1,6 +1,0 @@
-services:
-  solr:
-    build: .
-    container_name: opinion-solr
-    ports:
-      - "8983:8983"
